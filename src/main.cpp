@@ -1,5 +1,31 @@
 #include <Arduino.h>
 
+class day {
+  public:
+  /*This is a relative temp increase. So if you called increaseBy(3) and the envirment temp was 24C,
+   *the controller will increase the enviroment temp until it reaches 27C.
+   */
+      
+    void increaseBy(int increaseAmount) {
+    }
+  private:
+    const int dayLength = 86400;
+    int daysPassed;
+};
+class fan {
+  public:
+    int fanPin;
+    fan(int f) {
+      fanPin = f; 
+      pinMode(fanPin, OUTPUT);
+    }
+    void fanOn(int duration, int fanSpeed) {
+      analogWrite(fanPin, fanSpeed);
+    }
+    void fanOff() {
+      analogWrite(fanPin, 0);
+    }
+};
 class thermistor {
   public:
     int thermistorPin;
@@ -31,18 +57,15 @@ class heatLamp {
     }
 };
 thermistor thermistor1(A0);
-heatLamp lamp1(8);
+heatLamp lamp1(13);
 int currTemp;
+  int potOutput;
 
 void setup() {
   Serial.begin(115200);
+  pinMode(7, OUTPUT);
+
 }
 
 void loop() {
-  currTemp = thermistor1.readTemp();
-  Serial.println(currTemp);
-  lamp1.on();
-  delay(1000);
-  lamp1.off();
-  delay(1000);
 }
